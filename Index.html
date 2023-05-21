@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Age Calculator</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .container {
+      max-width: 400px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Age Calculator</h2>
+    <form>
+      <div class="form-group">
+        <label for="birthdate">Date of Birth:</label>
+        <input type="date" id="birthdate" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-primary" onclick="calculateAge()">Calculate</button>
+      </div>
+    </form>
+    <div id="result" class="alert alert-info" style="display: none;"></div>
+  </div>
+
+  <script>
+    function calculateAge() {
+      var birthdate = document.getElementById('birthdate').value;
+      var today = new Date();
+      var birthdateObj = new Date(birthdate);
+      var age = today.getFullYear() - birthdateObj.getFullYear();
+      var month = today.getMonth() - birthdateObj.getMonth();
+      var day = today.getDate() - birthdateObj.getDate();
+      var hour = today.getHours() - birthdateObj.getHours();
+
+      if (hour < 0) {
+        day--;
+        hour += 24;
+      }
+
+      if (day < 0) {
+        month--;
+        var daysInPrevMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+        day += daysInPrevMonth;
+      }
+
+      if (month < 0) {
+        age--;
+        month += 12;
+      }
+
+      var result = document.getElementById('result');
+      result.innerHTML = "Your age is " + age + " years, " + month + " months, " + day + " days, and " + hour + " hours.";
+      result.style.display = "block";
+    }
+  </script>
+</body>
+</html>
